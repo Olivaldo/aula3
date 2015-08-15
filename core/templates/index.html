@@ -8,31 +8,49 @@
         <hr>
             <form action="/inserir/" method="POST">
                 {% csrf_token %}
-                <input type="text" value="" name="nome" placeholder="Nome">
+                <input type="hidden" value="{{ pessoa.id }}" name="id">
                 <br >
-                <input type="text" value="" name="idade" placeholder="Idade">
+                <input type="text" value="{{ pessoa.nome }}" name="nome" placeholder="Nome">
+                <br >
+                <input type="text" value="{{ pessoa.idade }}" name="idade" placeholder="Idade">
                 <br >
                 <input type="submit" value="Enviar">
-            </form>
-            <hr>
-                
-
-            </hr>
+            </form>            
+        <hr>        
         <hr>
+            <form action="/pesquisar/" method="GET">
+                <input type="text" value="" name="buscar" placeholder="Buscar"> 
+                <br >
+                <br > 
+                <input type="submit" value="Pesquisar">
+            </form>
+        </hr>
         <table style="width:100%">
-            <caption>Pesquisa</caption>
+            <hr>
+                <caption>Pesquisa</caption>
+            </hr>    
             <tr>
                 <th align="left">Name</th>
                 <th align="left">Idade</th>
+                <th align="center">Editar</th>                
                 <th align="center">Excluir</th>                
             </tr> 
             {% for pessoa in pessoas %}                          
                 <tr>
-                    <td align="left">{{pessoa.nome}}</td> 	
-                    <td align="left">{{pessoa.idade}}</td>
-                    <td align="center"> <a href="/excluir/{{ pessoa.id }}/">(X)</a></td>  	
-                </tr>                        
-        {% endfor %}
-        </table>
+                    <td width="85%" align="left">{{pessoa.nome}}</td> 	
+                    <td width="5%" align="left">{{pessoa.idade}}</td>
+                    <td width="5%" align="center"> <a href="/editar/{{ pessoa.id }}/">(editar)</a></td>  
+                    <td width="5%" align="center"> <a href="/excluir/{{ pessoa.id }}/">(excluir)</a></td>
+                </tr>                                        
+                <tr>
+                    <td width="85%" align="left">{% for telefone in pessoa.telefone_set.all%}                        
+                                                     {{telefone.telefone}} <br />	                          	
+                                                 {% endfor %}</td> 	
+                    <td width="5%" align="left"></td>
+                    <td width="5%" align="center"> </td>  
+                    <td width="5%" align="center"></td>                      	                    
+                </tr>                                                        
+            {% endfor %}
+        </table>                            
     </body>
 </html>
