@@ -5,5 +5,34 @@
     <body>
         <h2>Página index</h2>
         {{ msg }}
+        <hr>
+            <form action="/inserir/" method="POST">
+                {% csrf_token %}
+                <input type="text" value="" name="nome" placeholder="Nome">
+                <br >
+                <input type="text" value="" name="idade" placeholder="Idade">
+                <br >
+                <input type="submit" value="Enviar">
+            </form>
+            <hr>
+                
+
+            </hr>
+        <hr>
+        <table style="width:100%">
+            <caption>Pesquisa</caption>
+            <tr>
+                <th align="left">Name</th>
+                <th align="left">Idade</th>
+                <th align="center">Excluir</th>                
+            </tr> 
+            {% for pessoa in pessoas %}                          
+                <tr>
+                    <td align="left">{{pessoa.nome}}</td> 	
+                    <td align="left">{{pessoa.idade}}</td>
+                    <td align="center"> <a href="/excluir/{{ pessoa.id }}/">(X)</a></td>  	
+                </tr>                        
+        {% endfor %}
+        </table>
     </body>
 </html>
