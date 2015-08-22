@@ -16,11 +16,10 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
-urlpatterns = [
+urlpatterns = [    
     url(r'^$', 'core.views.index'),
-    url(r'^inserir/$', 'pessoa.views.inserir'),
-    url(r'^excluir/(?P<codigo>\d+)/$', 'pessoa.views.excluir'),
-    url(r'^editar/(?P<codigo>\d+)/$', 'pessoa.views.inserir'),
-    url(r'^pesquisar/', 'pessoa.views.pesquisar'),
+    url(r'^pessoa/', include('pessoa.urls')),     
+
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^i18n/', include('django.conf.urls.i18n')),
 ]

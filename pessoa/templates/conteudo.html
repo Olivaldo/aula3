@@ -1,0 +1,16 @@
+{% extends 'template.html' %}
+{% load i18n %}
+
+{% block conteudo %}
+    {% trans 'Meu conteúdo novo!'%}
+    {% trans 'Menu conteúdo novo!' %}{% endblock %}    
+
+{% block rodape %}
+    {% for pessoa in pessoas %}
+        <li>{{ pessoa.nome }}</li>
+    {% endfor %}
+{% endblock %}
+
+{% block menu %}<b>MENU NOVO</b>{% endblock %}
+
+{% block titulo %}{{ msg }}{% endblock %}

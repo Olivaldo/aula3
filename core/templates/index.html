@@ -16,9 +16,22 @@
                 <br >
                 <input type="submit" value="Enviar">
             </form>            
-        <hr>        
+        </hr>
         <hr>
-            <form action="/pesquisar/" method="GET">
+        {{ form.errors }}
+            <form action="{% url 'inserirForm' %}" method="POST">
+                {% csrf_token %}
+                Nome: <input type="text" name="nome" value="{{ form.nome.value|default_if_none:'' }}" placeholder="Informe um nome...">
+                <br />
+                Idade: <input type="text" name="idade" value="{{ form.idade.value|default_if_none:'' }}" placeholder="Informe a idade...">
+                <br />
+                Ano: <input type="text" name="ano" value="{{ form.ano.value|default_if_none:'' }}" placeholder="Informe o ano...">
+                <br />                  
+                <input type="submit" value="Enviar"> 
+            </form>                
+        </hr> 
+        <hr>
+            <form action="{% url 'pesquisarPessoa' %}" method="GET">
                 <input type="text" value="" name="buscar" placeholder="Buscar"> 
                 <br >
                 <br > 
@@ -39,8 +52,8 @@
                 <tr>
                     <td width="85%" align="left">{{pessoa.nome}}</td> 	
                     <td width="5%" align="left">{{pessoa.idade}}</td>
-                    <td width="5%" align="center"> <a href="/editar/{{ pessoa.id }}/">(editar)</a></td>  
-                    <td width="5%" align="center"> <a href="/excluir/{{ pessoa.id }}/">(excluir)</a></td>
+                    <td width="5%" align="center"> <a href="{% url 'editarPessoa' pessoa.id %}">(editar)</a></td>  
+                    <td width="5%" align="center"> <a href="{% url 'excluirPessoa' pessoa.id %}">(excluir)</a></td>
                 </tr>                                        
                 <tr>
                     <td width="85%" align="left">{% for telefone in pessoa.telefone_set.all%}                        
