@@ -15,11 +15,20 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+#API
+from rest_framework import routers
+from pessoa import views
+
+rota = routers.DefaultRouter()
+rota.register(r'pessoa', views.Api_Automatica, 'Pessoa')
+
 
 urlpatterns = [    
     url(r'^$', 'core.views.index'),
-    url(r'^pessoa/', include('pessoa.urls')),     
-
+    url(r'^pessoa/', include('pessoa.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^i18n/', include('django.conf.urls.i18n')),
+    url(r'^api/', include(rota.urls)),
+    url(r'^api_manual/$', 'pessoa.views.api_manual'),
+    url(r'^api-auth/$', include('rest_framework.urls', namespace='rest_framework')),
 ]
